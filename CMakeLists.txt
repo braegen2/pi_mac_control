@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(pi_mac_control)
+project(pi_mac_control VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -34,4 +34,21 @@ add_executable(pi_example examples/pi_example.cpp)
 target_link_libraries(pi_example PRIVATE pi_mac_control)
 
 add_executable(mac_example examples/mac_example.cpp)
-target_link_libraries(mac_example PRIVATE pi_mac_control) 
+target_link_libraries(mac_example PRIVATE pi_mac_control)
+
+# Installation rules
+include(GNUInstallDirs)
+install(TARGETS pi_mac_control
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(DIRECTORY include/pi_mac_control
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# Install examples (optional)
+install(TARGETS pi_example mac_example
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+) 
