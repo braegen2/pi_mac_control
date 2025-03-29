@@ -38,7 +38,6 @@ target_link_libraries(mac_example PRIVATE pi_mac_control)
 # Installation rules
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-include(CMakeConfigPackageHelpers)
 
 # Install library and headers
 install(TARGETS pi_mac_control
@@ -54,11 +53,6 @@ install(DIRECTORY include/pi_mac_control
 # Install examples (optional)
 install(TARGETS pi_example mac_example
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-# Install CMake configuration files
-install(DIRECTORY cmake/
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pi_mac_control
 )
 
 # Create and install the config file
@@ -91,34 +85,4 @@ if(NOT TARGET uninstall)
     add_custom_target(uninstall
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
     )
-endif()
-
-cmake_minimum_required(VERSION 3.10)
-project(test_pi_mac)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Find required packages
-find_package(OpenCV REQUIRED)
-find_package(Threads REQUIRED)
-find_package(pi_mac_control REQUIRED)
-
-# Create test executables
-add_executable(test_client test_client.cpp)
-add_executable(test_server test_server.cpp)
-
-# Link against the library
-target_link_libraries(test_client
-    PRIVATE
-        pi_mac_control
-        ${OpenCV_LIBS}
-        Threads::Threads
-)
-
-target_link_libraries(test_server
-    PRIVATE
-        pi_mac_control
-        ${OpenCV_LIBS}
-        Threads::Threads
-) 
+endif() 
