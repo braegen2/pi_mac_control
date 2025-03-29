@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Find OpenCV
 find_package(OpenCV REQUIRED)
 
+# Find pthread
+find_package(Threads REQUIRED)
+
 # Create library
 add_library(pi_mac_control
     src/server.cpp
@@ -19,10 +22,11 @@ target_include_directories(pi_mac_control
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# Link OpenCV
+# Link OpenCV and pthread
 target_link_libraries(pi_mac_control
     PUBLIC
         ${OpenCV_LIBS}
+        Threads::Threads
 )
 
 # Add examples
