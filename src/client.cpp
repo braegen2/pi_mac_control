@@ -96,7 +96,7 @@ bool Client::initializeClient() {
     }
 
     std::cout << "Connecting to " << server_ip_ << " on port " << port_ << std::endl;
-    if (connect(client_socket_, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+    if (::connect(client_socket_, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         std::cerr << "Connection failed" << std::endl;
         return false;
     }
